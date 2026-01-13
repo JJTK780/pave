@@ -1,0 +1,13 @@
+{
+  "name": "roadmap-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "server": "npx nodemon server/server.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
