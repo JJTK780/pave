@@ -7,10 +7,10 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(null);
 
-  const getRoleStyle = (role) => {
-    if (role === "admin") return { color: "red", fontWeight: "bold" };
-    if (role === "mentor") return { color: "green", fontWeight: "bold" };
-    return { color: "blue" };
+  const getRoleBadgeClass = (role) => {
+    if (role === "admin") return "badge-admin";
+    if (role === "mentor") return "badge-mentor";
+    return "badge-intern";
   };
 
   useEffect(() => {
@@ -42,55 +42,81 @@ const AdminDashboard = () => {
     }
   };
 
-  if (loading) return <p>Loading users...</p>;
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="content-wrapper">
+          <div className="loading-text">Loading users...</div>
+        </div>
+      </>
+    );
+  }
+
   if (!loading && users.length === 0) {
-    return <p>No users found.</p>;
+    return (
+      <>
+        <Navbar />
+        <div className="content-wrapper">
+          <div className="alert alert-info">No users found.</div>
+        </div>
+      </>
+    );
   }
 
   return (
     <>
       <Navbar />
 
-      <div style={{ padding: "20px" }}>
-        <h2>Admin Dashboard</h2>
+      <div className="content-wrapper">
+        <div className="section-header">
+          <h2 className="section-title">User Management</h2>
+        </div>
 
-        <table border="1" cellPadding="10">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td style={getRoleStyle(user.role)}>
-                  {user.role.toUpperCase()}
-                </td>
-
-                <td>
-                  {user.role === "intern" ? (
-                    <button
-                      onClick={() => promoteUser(user._id)}
-                      disabled={actionLoading === user._id}
-                    >
-                      {actionLoading === user._id
-                        ? "Promoting..."
-                        : "Promote to Mentor"}
-                    </button>
-                  ) : (
-                    "-"
-                  )}
-                </td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>
+                    {user.name}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>
+                    <span className={`badge ${getRoleBadgeClass(user.role)}`}>
+                      {user.role}
+                    </span>
+                  </td>
+
+                  <td>
+                    {user.role === "intern" ? (
+                      <button
+                        onClick={() => promoteUser(user._id)}
+                        disabled={actionLoading === user._id}
+                        className="btn btn-success btn-sm"
+                      >
+                        {actionLoading === user._id
+                          ? "Promoting..."
+                          : "Promote to Mentor"}
+                      </button>
+                    ) : (
+                      <span style={{ color: 'var(--color-text-muted)' }}>—</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

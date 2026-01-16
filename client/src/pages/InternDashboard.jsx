@@ -100,62 +100,141 @@ const InternDashboard = () => {
     }
   };
 
-  if (loading) return <p>Loading roadmaps...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="content-wrapper">
+          <div className="loading-text">Loading roadmaps...</div>
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="content-wrapper">
+          <div className="alert alert-error">{error}</div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
 
-      <div style={{ padding: "20px" }}>
-        <h2>My Learning</h2>
+      <div className="content-wrapper">
+        {/* My Learning Section */}
+        <div className="section-header">
+          <h2 className="section-title">My Learning</h2>
+        </div>
 
-        {myLearning.length === 0 && <p>No active roadmaps</p>}
+        {myLearning.length === 0 && (
+          <div className="alert alert-info">No active roadmaps. Start learning from available roadmaps below!</div>
+        )}
 
-        {myLearning.map((r) => (
-          <div key={r._id} style={{ marginBottom: "12px" }}>
-            <h3>{r.title}</h3>
-            <p>
-              {r.completedTasks} / {r.totalTasks} completed
-            </p>
+        <div className="grid grid-cols-1 mb-8">
+          {myLearning.map((r) => (
+            <div key={r._id} className="dashboard-card">
+              <h3 style={{ marginBottom: 'var(--space-2)', fontSize: 'var(--font-size-xl)' }}>
+                {r.title}
+              </h3>
 
-            <button onClick={() => navigate(`/roadmap/${r._id}?mode=track`)}>
-              Continue
-            </button>
-          </div>
-        ))}
-        <h2>Completed</h2>
+              <div style={{ marginBottom: 'var(--space-4)' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: 'var(--space-2)',
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--color-text-secondary)'
+                }}>
+                  <span>Progress</span>
+                  <span>{r.completedTasks} / {r.totalTasks} tasks</span>
+                </div>
 
-        {completed.length === 0 && <p>No completed roadmaps</p>}
+                <div className="progress-container">
+                  <div
+                    className="progress-bar"
+                    style={{ width: `${(r.completedTasks / r.totalTasks) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
 
-        {completed.map((r) => (
-          <div key={r._id} style={{ marginBottom: "12px" }}>
-            <h3>{r.title}</h3>
+              <button
+                onClick={() => navigate(`/roadmap/${r._id}?mode=track`)}
+                className="btn btn-primary"
+              >
+                Continue Learning →
+              </button>
+            </div>
+          ))}
+        </div>
 
-            <button onClick={() => navigate(`/roadmap/${r._id}?mode=view`)}>
-              View Roadmap
-            </button>
-          </div>
-        ))}
+        {/* Completed Section */}
+        <div className="section-header">
+          <h2 className="section-title">Completed</h2>
+        </div>
 
-        <h2>Available Roadmaps</h2>
+        {completed.length === 0 && (
+          <div className="alert alert-info">No completed roadmaps yet. Keep learning!</div>
+        )}
 
-        {available.length === 0 && <p>No roadmaps available</p>}
+        <div className="grid grid-cols-1 mb-8">
+          {completed.map((r) => (
+            <div key={r._id} className="dashboard-card">
+              <h3 style={{ marginBottom: 'var(--space-3)', fontSize: 'var(--font-size-xl)' }}>
+                {r.title}
+              </h3>
+              <p style={{ marginBottom: 'var(--space-4)', color: 'var(--color-success)' }}>
+                Congratulations! You've completed this roadmap.
+              </p>
+              <button
+                onClick={() => navigate(`/roadmap/${r._id}?mode=view`)}
+                className="btn btn-secondary"
+              >
+                View Roadmap
+              </button>
+            </div>
+          ))}
+        </div>
 
-        {available.map((r) => (
-          <div key={r._id} style={{ marginBottom: "12px" }}>
-            <h3>{r.title}</h3>
-            <p>{r.description}</p>
+        {/* Available Roadmaps Section */}
+        <div className="section-header">
+          <h2 className="section-title">Available Roadmaps</h2>
+        </div>
 
-            <button onClick={() => navigate(`/roadmap/${r._id}?mode=view`)}>
-              View Roadmap
-            </button>
+        {available.length === 0 && (
+          <div className="alert alert-info">No new roadmaps available at the moment.</div>
+        )}
 
-            <button onClick={() => handleStartRoadmap(r._id)}>
-              Start Roadmap
-            </button>
-          </div>
-        ))}
+        <div className="grid grid-cols-1">
+          {available.map((r) => (
+            <div key={r._id} className="dashboard-card">
+              <h3 style={{ marginBottom: 'var(--space-2)', fontSize: 'var(--font-size-xl)' }}>
+                {r.title}
+              </h3>
+              <p style={{ marginBottom: 'var(--space-4)' }}>{r.description}</p>
+
+              <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+                <button
+                  onClick={() => navigate(`/roadmap/${r._id}?mode=view`)}
+                  className="btn btn-secondary"
+                >
+                  Preview
+                </button>
+                <button
+                  onClick={() => handleStartRoadmap(r._id)}
+                  className="btn btn-primary"
+                >
+                  Start Learning
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

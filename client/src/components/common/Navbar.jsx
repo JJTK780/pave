@@ -5,7 +5,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  if (!user) return null; // don't show if not logged in
+  if (!user) return null;
 
   const handleLogout = () => {
     logout();
@@ -24,41 +24,29 @@ const Navbar = () => {
     }
   };
 
-  return (
-    <div style={styles.nav}>
-      <span style={styles.title} onClick={handleHomeClick}>
-        Roadmap Tracker
-      </span>
+  const getRoleBadgeClass = () => {
+    if (user.role === "admin") return "badge-admin";
+    if (user.role === "mentor") return "badge-mentor";
+    return "badge-intern";
+  };
 
-      <div>
-        <span style={styles.role}>{user.role.toUpperCase()}</span>
-        <button onClick={handleLogout} style={styles.button}>
+  return (
+    <nav className="navbar">
+      <div className="navbar-brand" onClick={handleHomeClick}>
+        <span>Roadmap Tracker</span>
+      </div>
+
+      <div className="navbar-actions">
+        <span className={`badge ${getRoleBadgeClass()}`}>
+          {user.role}
+        </span>
+        <button onClick={handleLogout} className="btn btn-secondary btn-sm">
           Logout
         </button>
       </div>
-    </div>
+    </nav>
   );
 };
 
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "10px 20px",
-    borderBottom: "1px solid #ccc",
-    marginBottom: "20px",
-  },
-  title: {
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
-  role: {
-    marginRight: "10px",
-    fontSize: "14px",
-  },
-  button: {
-    cursor: "pointer",
-  },
-};
-
 export default Navbar;
+

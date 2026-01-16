@@ -30,80 +30,68 @@ const Register = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <h2>Register</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="text-center mb-8">Create Account</h2>
 
-        {error && <p style={styles.error}>{error}</p>}
-        {success && <p style={styles.success}>{success}</p>}
+        {error && <div className="alert alert-error">{error}</div>}
+        {success && <div className="alert alert-success">{success}</div>}
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          style={styles.input}
-        />
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={styles.input}
-        />
+          <div className="form-group">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={styles.input}
-        />
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        <button type="submit" style={styles.button}>
-          Register
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary btn-block btn-lg">
+            Register
+          </button>
+        </form>
+
+        <p className="text-center mt-6" style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+          Already have an account?{" "}
+          <span
+            style={{ color: 'var(--color-primary-light)', cursor: 'pointer', fontWeight: 500 }}
+            onClick={() => navigate("/")}
+          >
+            Login
+          </span>
+        </p>
+      </div>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  },
-  form: {
-    width: "320px",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-  },
-  input: {
-    width: "100%",
-    padding: "8px",
-    margin: "8px 0",
-  },
-  button: {
-    width: "100%",
-    padding: "8px",
-    marginTop: "10px",
-    cursor: "pointer",
-  },
-  error: {
-    color: "red",
-    fontSize: "14px",
-  },
-  success: {
-    color: "green",
-    fontSize: "14px",
-  },
-};
-
 export default Register;
+

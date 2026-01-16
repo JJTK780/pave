@@ -41,61 +41,92 @@ const MentorDashboard = () => {
     }
   };
 
-  if (loading) return <p>Loading roadmaps...</p>;
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="content-wrapper">
+          <div className="loading-text">Loading roadmaps...</div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
-      <div style={{ padding: "20px" }}>
-        <h2>Mentor Dashboard</h2>
+      <div className="content-wrapper">
+        <div className="section-header">
+          <h2 className="section-title">Mentor Dashboard</h2>
+        </div>
 
-        {/* Create Roadmap */}
-        <form onSubmit={handleCreateRoadmap} style={{ marginBottom: "20px" }}>
-          <h3>Create New Roadmap</h3>
+        {/* Create Roadmap Card */}
+        <div className="card mb-8">
+          <h3 style={{ marginBottom: 'var(--space-6)', fontSize: 'var(--font-size-xl)' }}>
+            Create New Roadmap
+          </h3>
 
-          <input
-            type="text"
-            placeholder="Roadmap Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            style={{ display: "block", marginBottom: "8px", width: "300px" }}
-          />
+          <form onSubmit={handleCreateRoadmap}>
+            <div className="form-group">
+              <label className="form-label">Roadmap Title</label>
+              <input
+                type="text"
+                placeholder="e.g., Frontend Development Roadmap"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="form-input"
+                required
+              />
+            </div>
 
-          <textarea
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            style={{ display: "block", marginBottom: "8px", width: "300px" }}
-          />
+            <div className="form-group">
+              <label className="form-label">Description</label>
+              <textarea
+                placeholder="Brief description of what this roadmap covers..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="form-textarea"
+              />
+            </div>
 
-          <button type="submit">Create</button>
-        </form>
+            <button type="submit" className="btn btn-primary btn-lg">
+              Create Roadmap
+            </button>
+          </form>
+        </div>
 
         {/* Roadmap List */}
-        <h3>Your Roadmaps</h3>
+        <div className="section-header">
+          <h3 className="section-title">Your Roadmaps</h3>
+        </div>
 
-        {roadmaps.length === 0 && <p>No roadmaps created yet</p>}
-
-        {roadmaps.map((roadmap) => (
-          <div
-            key={roadmap._id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "6px",
-            }}
-          >
-            <h4>{roadmap.title}</h4>
-            <p>{roadmap.description}</p>
-
-            <button onClick={() => navigate(`/mentor/roadmap/${roadmap._id}`)}>
-              Manage Roadmap
-            </button>
+        {roadmaps.length === 0 && (
+          <div className="alert alert-info">
+            No roadmaps created yet. Create your first roadmap above!
           </div>
-        ))}
+        )}
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <div className="grid grid-cols-1">
+          {roadmaps.map((roadmap) => (
+            <div key={roadmap._id} className="dashboard-card">
+              <h4 style={{ marginBottom: 'var(--space-2)', fontSize: 'var(--font-size-xl)' }}>
+                {roadmap.title}
+              </h4>
+              <p style={{ marginBottom: 'var(--space-4)' }}>
+                {roadmap.description || 'No description provided'}
+              </p>
+
+              <button
+                onClick={() => navigate(`/mentor/roadmap/${roadmap._id}`)}
+                className="btn btn-primary"
+              >
+                Manage Roadmap →
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {error && <div className="alert alert-error mt-6">{error}</div>}
       </div>
     </>
   );
