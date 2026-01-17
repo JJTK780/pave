@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -40,6 +41,7 @@ const Navbar = () => {
         <span className={`badge ${getRoleBadgeClass()}`}>
           {user.role}
         </span>
+        <ThemeToggle />
         <button onClick={handleLogout} className="btn btn-secondary btn-sm">
           Logout
         </button>
