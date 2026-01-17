@@ -35,64 +35,46 @@ const AdminLogin = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <h2>Admin Login</h2>
-        {error && <p style={styles.error}>{error}</p>}
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="text-center mb-8" style={{ color: 'var(--color-error)' }}>
+          Admin Login
+        </h2>
 
-        <input
-          type="email"
-          placeholder="Admin Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={styles.input}
-        />
+        {error && <div className="alert alert-error">{error}</div>}
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={styles.input}
-        />
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Admin Email</label>
+            <input
+              type="email"
+              placeholder="Enter admin email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
-      </form>
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
+
+          <button type="submit" className="btn btn-danger btn-block btn-lg">
+            Login as Admin
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  },
-  form: {
-    width: "300px",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-  },
-  input: {
-    width: "100%",
-    padding: "8px",
-    margin: "8px 0",
-  },
-  button: {
-    width: "100%",
-    padding: "8px",
-    marginTop: "10px",
-    cursor: "pointer",
-  },
-  error: {
-    color: "red",
-    fontSize: "14px",
-  },
 };
 
 export default AdminLogin;

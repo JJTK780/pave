@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "server": "npx nodemon server/server.js",
-    "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm run dev --prefix client"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
