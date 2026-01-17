@@ -58,29 +58,102 @@ const RoadmapTracker = () => {
   return (
     <>
       <Navbar />
-      <div style={{ padding: "20px" }}>
-        <h2>Roadmap Tracker</h2>
+      <div className="content-wrapper">
+        <div className="section-header">
+          <h2 className="section-title">
+            {isTracking ? "Track Your Progress" : "Roadmap Preview"}
+          </h2>
+        </div>
+
+        {modules.length === 0 && (
+          <div className="alert alert-info">No modules found in this roadmap.</div>
+        )}
 
         {modules.map((module) => (
-          <div key={module._id} style={{ marginBottom: "20px" }}>
-            <h3>{module.title}</h3>
+          <div key={module._id} className="card mb-6">
+            <h3 style={{
+              marginBottom: 'var(--space-4)',
+              fontSize: 'var(--font-size-xl)',
+              color: 'var(--color-primary-light)'
+            }}>
+              {module.title}
+            </h3>
 
-            {tasks[module._id]?.map((task) => (
-              <div key={task._id} style={{ marginLeft: "20px" }}>
-                {isTracking && (
-                  <input
-                    type="checkbox"
-                    checked={completedTasks.includes(task._id)}
-                    onChange={() => handleCheckbox(task._id)}
-                  />
-                )}
+            {tasks[module._id]?.length === 0 && (
+              <p style={{ color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                No tasks in this module yet.
+              </p>
+            )}
 
-                <strong style={{ marginLeft: "8px" }}>
-                  Day {task.dayNumber}: {task.title}
-                </strong>
-                <p style={{ marginLeft: "28px" }}>{task.description}</p>
-              </div>
-            ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+              {tasks[module._id]?.map((task) => {
+                const isCompleted = completedTasks.includes(task._id);
+
+                return (
+                  <div
+                    key={task._id}
+                    style={{
+                      padding: 'var(--space-4)',
+                      background: isCompleted
+                        ? 'rgba(16, 185, 129, 0.05)'
+                        : 'rgba(15, 20, 25, 0.3)',
+                      border: `1px solid ${isCompleted
+                        ? 'rgba(16, 185, 129, 0.2)'
+                        : 'var(--color-border)'}`,
+                      borderRadius: 'var(--radius-md)',
+                      transition: 'all var(--transition-fast)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
+                      {isTracking && (
+                        <label className="custom-checkbox" style={{ marginTop: '2px' }}>
+                          <input
+                            type="checkbox"
+                            checked={isCompleted}
+                            onChange={() => handleCheckbox(task._id)}
+                          />
+                        </label>
+                      )}
+
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          fontWeight: 'var(--font-weight-semibold)',
+                          color: isCompleted ? 'var(--color-success)' : 'var(--color-text-primary)',
+                          marginBottom: 'var(--space-2)',
+                          textDecoration: isCompleted ? 'line-through' : 'none'
+                        }}>
+                          <span style={{
+                            color: 'var(--color-primary)',
+                            marginRight: 'var(--space-2)'
+                          }}>
+                            Day {task.dayNumber}:
+                          </span>
+                          {task.title}
+                        </div>
+
+                        <p style={{
+                          margin: 0,
+                          color: 'var(--color-text-secondary)',
+                          fontSize: 'var(--font-size-sm)',
+                          opacity: isCompleted ? 0.7 : 1
+                        }}>
+                          {task.description}
+                        </p>
+                      </div>
+
+                      {isCompleted && (
+                        <span style={{
+                          fontSize: 'var(--font-size-xl)',
+                          color: 'var(--color-success)'
+                        }}>
+                          ✓
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         ))}
       </div>
