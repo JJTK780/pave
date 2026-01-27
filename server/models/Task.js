@@ -1,4 +1,4 @@
-// This file defines the day schema for the Roadmap Tracker application.
+// This file defines the day schema for the Pave application.
 const mongoose = require("mongoose");
 
 const taskSchema = new mongoose.Schema(
@@ -21,7 +21,7 @@ const taskSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Task", taskSchema);

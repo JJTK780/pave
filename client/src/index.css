@@ -1,7 +1,3 @@
-/* ============================================
-   ROADMAP TRACKER - MODERN UI DESIGN SYSTEM
-   ============================================ */
-
 /* CSS Custom Properties */
 :root {
   /* Colors - Professional White & Black Theme */
@@ -29,7 +25,8 @@
   --color-border-focus: rgba(0, 0, 0, 0.3);
 
   /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -114,7 +111,6 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
   --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
-
 
 /* ============================================
    GLOBAL RESETS & BASE STYLES
@@ -558,7 +554,6 @@ a:hover {
   font-weight: var(--font-weight-semibold);
 }
 
-
 /* ============================================
    TABLE COMPONENT
    ============================================ */
@@ -715,7 +710,7 @@ a:hover {
 }
 
 .custom-checkbox input[type="checkbox"]:checked::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -788,7 +783,6 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-
   .grid-cols-2,
   .grid-cols-3 {
     grid-template-columns: 1fr;

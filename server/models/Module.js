@@ -1,4 +1,4 @@
-// This file defines the week schema for the Roadmap Tracker application.
+// This file defines the week schema for the Pave application.
 const mongoose = require("mongoose");
 
 const moduleSchema = new mongoose.Schema(
@@ -18,7 +18,7 @@ const moduleSchema = new mongoose.Schema(
       required: true, // 1, 2, 3...
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Module", moduleSchema);

@@ -1,4 +1,4 @@
-// This file defines the roadmap schema(title,description,createdBy) for the Roadmap Tracker application.
+// This file defines the roadmap schema(title,description,createdBy) for the Pave application.
 const mongoose = require("mongoose");
 
 const roadmapSchema = new mongoose.Schema(
@@ -17,7 +17,7 @@ const roadmapSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Roadmap", roadmapSchema);
