@@ -1,7 +1,7 @@
 {
-  "name": "roadmap-tracker-backend",
+  "name": "pave-backend",
   "version": "1.0.0",
-  "description": "Backend API for Roadmap Tracker",
+  "description": "Backend API for Pave",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {

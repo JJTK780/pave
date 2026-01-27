@@ -34,13 +34,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand" onClick={handleHomeClick}>
-        <span>Roadmap Tracker</span>
+        <span>Pave</span>
       </div>
 
       <div className="navbar-actions">
-        <span className={`badge ${getRoleBadgeClass()}`}>
-          {user.role}
-        </span>
+        <span className={`badge ${getRoleBadgeClass()}`}>{user.role}</span>
         <ThemeToggle />
         <button onClick={handleLogout} className="btn btn-secondary btn-sm">
           Logout
@@ -51,4 +49,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
