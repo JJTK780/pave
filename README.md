@@ -108,3 +108,7 @@ PAVE helps organizations and mentors _pave a clear learning path for interns_ by
 **Jefson Jacob**  
 GitHub: https://github.com/JJTK780
 LinkedIn: https://www.linkedin.com/in/jefsonjacob/
+
+## 📄 License
+This project is licensed under the MIT License.
+
