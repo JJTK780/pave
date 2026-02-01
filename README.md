@@ -13,6 +13,9 @@ PAVE helps organizations and mentors _pave a clear learning path for interns_ by
 - Enforcing strict role-based permissions
 
 ---
+![image alt](https://github.com/JJTK780/pave/blob/3f92ffcff7993f90d5ab86d46006fbba0ccc6a6b/pave_thumbnail.png)
+
+---
 
 ## Tech Stack
 
